@@ -10,6 +10,7 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/reposit
     && apk add --no-cache --virtual .build-deps \
         alpine-sdk \
         ocaml \
+        lz4-dev \
         ocamlbuild \
         libelf \
         libelf-dev \
