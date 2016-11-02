@@ -1,6 +1,6 @@
 FROM alpine:edge
 
-MAINTAINER Sébastien HOUZÉ <sebastien.houze@verylastroom.com>
+MAINTAINER David Papp <david@ghostmonitor.com>
 
 ENV FLOW_VERSION=0.34.0
 
@@ -19,6 +19,7 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/reposit
         linux-headers \
         bash \
         diffutils \
+    && apk add --update nodejs \
     && cd /tmp \
     && curl -SL https://github.com/facebook/flow/archive/v${FLOW_VERSION}.tar.gz -o /tmp/flow-${FLOW_VERSION}.tgz \
     && tar -C /tmp -xzpf /tmp/flow-${FLOW_VERSION}.tgz \
@@ -38,8 +39,5 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/reposit
     && apk add --no-cache --virtual .flow-rundeps $runDeps \
     && apk del --no-cache .build-deps \
     && rm -rf /tmp/*
-
-VOLUME /app
-WORKDIR /app
 
 CMD ["flow", "check"]
