@@ -1,0 +1,83 @@
+From 2edc61986ec7db0dcebccd032198f70b176222ee Mon Sep 17 00:00:00 2001
+From: Sam Goldman <samwgoldman@gmail.com>
+Date: Tue, 22 Nov 2016 08:14:39 -0800
+Subject: [PATCH] Remove unused modules
+
+Summary:
+Tried to compile with 4.04 on a lark, which adds a new warning for unused modules.
+Fixes https://github.com/facebook/flow/issues/2870
+Closes https://github.com/facebook/flow/pull/2867
+
+Differential Revision: D4220268
+
+Pulled By: mroch
+
+fbshipit-source-id: 58970b0f0f450a83107a8ad9e0a52a87adba5b64
+---
+ src/common/errors.ml                | 1 -
+ src/common/reason.ml                | 1 -
+ src/parser/parser_env.ml            | 1 -
+ src/services/inference/module_js.ml | 1 -
+ src/typing/func_params.ml           | 1 -
+ 5 files changed, 5 deletions(-)
+
+diff --git a/src/common/errors.ml b/src/common/errors.ml
+index a18b9ab..68c078c 100644
+--- a/src/common/errors.ml
++++ b/src/common/errors.ml
+@@ -314,7 +314,6 @@ module ErrorSet = Set.Make(Error)
+  *)
+ module ErrorSuppressions = struct
+   open Span
+-  module Ast = Spider_monkey_ast
+ 
+   type error_suppressions = Loc.t SpanMap.t
+   type t = {
+diff --git a/src/common/reason.ml b/src/common/reason.ml
+index efff2f5..1c1d28d 100644
+--- a/src/common/reason.ml
++++ b/src/common/reason.ml
+@@ -21,7 +21,6 @@
+ 
+ open Utils_js
+ open String_utils
+-module Ast = Spider_monkey_ast
+ 
+ let mk_id () = Ident.make ""
+ 
+diff --git a/src/parser/parser_env.ml b/src/parser/parser_env.ml
+index d3b2350..182ea31 100644
+--- a/src/parser/parser_env.ml
++++ b/src/parser/parser_env.ml
+@@ -14,7 +14,6 @@ module Lex_result = Lexer_flow.Lex_result
+ open Ast
+ module Error = Parse_error
+ module SSet = Set.Make(String)
+-module SMap = Map.Make(String)
+ 
+ module Lex_mode = struct
+   type t =
+diff --git a/src/services/inference/module_js.ml b/src/services/inference/module_js.ml
+index 57c291b..0c3f28a 100644
+--- a/src/services/inference/module_js.ml
++++ b/src/services/inference/module_js.ml
+@@ -19,7 +19,6 @@
+ open Utils_js
+ 
+ module Ast = Spider_monkey_ast
+-module Flow = Flow_js
+ module ErrorSet = Errors.ErrorSet
+ module FlowError = Flow_error
+ 
+diff --git a/src/typing/func_params.ml b/src/typing/func_params.ml
+index 26c4b37..448c1a8 100644
+--- a/src/typing/func_params.ml
++++ b/src/typing/func_params.ml
+@@ -1,7 +1,6 @@
+ module Ast = Spider_monkey_ast
+ module Anno = Type_annotation
+ module Flow = Flow_js
+-module Utils = Utils_js
+ 
+ open Reason
+ open Type
