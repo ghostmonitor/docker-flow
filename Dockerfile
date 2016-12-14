@@ -2,10 +2,9 @@ FROM alpine:edge
 
 MAINTAINER Sébastien HOUZÉ <sebastien.houze@verylastroom.com>
 
-ENV FLOW_VERSION=0.36.0
+ENV FLOW_VERSION=0.37.0
 
 COPY flow.patch /tmp/
-COPY flow_unused_modules.patch /tmp/
 
 RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
     && apk add --no-cache --virtual .build-deps \
@@ -28,8 +27,6 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/reposit
     && cd /tmp/flow-${FLOW_VERSION} \
     && cp /tmp/flow.patch . \
     && git apply flow.patch \
-    && cp /tmp/flow_unused_modules.patch . \
-    && git apply flow_unused_modules.patch \
     && make -j"$(getconf _NPROCESSORS_ONLN)" \
     && cp /tmp/flow-${FLOW_VERSION}/bin/flow /usr/local/bin \
     && runDeps="$( \
