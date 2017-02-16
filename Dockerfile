@@ -2,7 +2,7 @@ FROM alpine:edge
 
 MAINTAINER Sébastien HOUZÉ <sebastien.houze@verylastroom.com>
 
-ENV FLOW_VERSION=0.38.0
+ENV FLOW_VERSION=0.39.0
 
 COPY flow.patch /tmp/
 
