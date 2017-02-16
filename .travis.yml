@@ -8,8 +8,8 @@ cache:
 
 env:
     global:
-        - DOCKER_VERSION=1.12.3-0~trusty
-        - DOCKER_COMPOSE_VERSION=1.8.1
+        - DOCKER_VERSION=1.13.1-0~trusty
+        - DOCKER_COMPOSE_VERSION=1.11.1
         - DOCKER_IMAGE_TAG=0.39
 
 before_install:
