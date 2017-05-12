@@ -1,0 +1,38 @@
+language: ruby
+
+sudo: required
+dist: trusty
+
+cache:
+    apt: true
+
+env:
+    global:
+        - DOCKER_VERSION=1.13.1-0~ubuntu-trusty
+        - DOCKER_COMPOSE_VERSION=1.11.0
+        - DOCKER_IMAGE_TAG=0.39
+
+before_install:
+    - sudo apt-get update
+    - git clone --branch docker-trusty --depth=1 https://github.com/rezzza/travis-ci.git ~/.rezzza-utils
+    - ~/.rezzza-utils/bootstrap.sh
+
+script:
+    - docker build -t rezzza/ci-docker-flow:$DOCKER_IMAGE_TAG .
+
+after_success:
+    - docker images
+    - |
+        if [ "$TRAVIS_SECURE_ENV_VARS" == "true" ] ; then
+            docker login -u="$DOCKER_HUB_LOGIN" -p="$DOCKER_HUB_PASSWORD" \
+            && docker push rezzza/ci-docker-flow:$DOCKER_IMAGE_TAG
+        fi
+
+notifications:
+    slack: verylastroom:yqs3UqNXq6H3L9p8npeVFWgh
+    email:
+        recipients:
+            - ci@karibbu.com
+        on_success: change
+        on_failure: change
+

@@ -2,7 +2,7 @@ FROM alpine:edge
 
 MAINTAINER David Papp <david@ghostmonitor.com>
 
-ENV FLOW_VERSION=0.34.0
+ENV FLOW_VERSION=0.39.0
 
 COPY flow.patch /tmp/
 
@@ -10,6 +10,7 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/reposit
     && apk add --no-cache --virtual .build-deps \
         alpine-sdk \
         ocaml \
+        lz4 \
         lz4-dev \
         ocamlbuild \
         libelf \
