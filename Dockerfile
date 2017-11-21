@@ -2,6 +2,7 @@ FROM risingstack/alpine:3.4-v8.5.0-4.7.0
 LABEL AUTHOR="David Gereb <david.gereb@recart.com>"
 
 ENV FLOW_VERSION=0.39.0
+ENV NODE_ENV=development
 
 COPY flow.patch /tmp/flow.patch
 
